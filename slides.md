@@ -116,7 +116,6 @@ const handleClick = () => {
   - 响应式追踪更精准，更新更快
   - 适合性能敏感场景和新项目
 - 缺点（可能是缺点~~~）：
-  - 不支持 Options API
   - 暂时不支持Transition、KeepAlive、Suspense、SSR等高级特性
   - 明确不支持的特性：
     - 选项 API ❌
@@ -129,7 +128,7 @@ const handleClick = () => {
 
 ## 如何开启Vapor模式？
 
-局部开启（推荐渐进迁移）
+局部开启（推荐渐进迁移）配置 `createApp(App).use(vaporInteropPlugin)`
 
 ```vue
 <script setup vapor>
