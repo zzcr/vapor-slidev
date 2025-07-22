@@ -39,6 +39,8 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
 
 ## Vapor模式与VDOM模式的区别
 
+<br/>
+
 | 特性         | VDOM模式                | Vapor模式                |
 | ------------ | ----------------------- | ------------------------ |
 | 渲染机制     | 虚拟DOM diff+patch      | 编译期生成直接DOM操作代码 |
@@ -54,6 +56,8 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
 
 ## VDOM模式优缺点
 
+<br/>
+
 - 优点：
   - 兼容性强，支持所有Vue特性（如Transition、KeepAlive等）
   - 可以抽象出VNode树，对接自定义渲染器
@@ -66,6 +70,8 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
 
 ## Vapor模式优缺点
 
+<br/>
+
 - 优点：
   - 极致性能，包体积和内存占用大幅下降
   - 响应式追踪更精准，更新更快
@@ -74,17 +80,17 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
   - 不支持 Options API
   - 暂时不支持Transition、KeepAlive、Suspense、SSR等高级特性
   - 明确不支持的特性：
-    - 选项 API
-    - app.config.globalProperties
-    - getCurrentInstance()nullVapor 组件中的回报
-    - 隐式实例属性（例如`$slots`和）`$props`在 Vapor 模板表达式中不可用
-    - @vue:xxx每个元素的生命周期事件
+    - 选项 API ❌
+    - app.config.globalProperties ❌
+    - getCurrentInstance()nullVapor 组件中的回报 ❌
+    - 隐式实例属性（例如`$slots`和）`$props`在 Vapor 模板表达式中不可用 ❌
+    - @vue:xxx每个元素的生命周期事件 ❌
 
 ---
 
 ## 如何开启Vapor模式？
 
-### 局部开启（推荐渐进迁移）
+局部开启（推荐渐进迁移）
 
 ```vue
 <script setup vapor>
@@ -96,7 +102,7 @@ const count = ref(0)
 </template>
 ```
 
-### 全局开启（新项目/极致性能）
+全局开启（新项目/极致性能）
 
 - 使用`createVaporApp`替换`createApp`
 - 或将根组件命名为`App.vapor.vue`
@@ -113,6 +119,8 @@ createVaporApp(App).mount('#app')
 ---
 
 ## Vapor模式的适用建议
+
+<br/>
 
 - ✅ 性能关键页面（如首页、列表页）
 - ✅ 新项目可直接全局启用
@@ -134,46 +142,62 @@ Vue JSX Vapor是专为Vapor模式优化的JSX编译器插件，支持高性能�
 - 兼容大部分Vue内置指令和宏
 
 ```js
-// vite.config.ts
-import VueJsxVapor from 'vue-jsx-vapor/vite'
-export default {
-  plugins: [VueJsxVapor()]
-}
+import { defineConfig } from 'vite'
+import vueJsxVapor from 'vue-jsx-vapor/vite'
+
+export default defineConfig({
+  plugins: [
+    vueJsxVapor({
+      macros: true, // 宏需要通过将 macros 设置为 true 来手动启用。
+    }),
+  ],
+})
 ```
 
 <!-- 介绍JSX Vapor的安装和基本用法 -->
 
 ---
 
-## Vue JSX Vapor 指令与宏
+## Vue JSX Vapor 指令
 
-### 常用指令支持
-
-- v-show、v-if、v-for、v-model等均可直接在JSX中使用
-- 语法示例：
+| 指令 | Vue | Volar |
+| --- | --- | --- |
+| v-if, v-else-if, v-else | ✅ | ✅ |
+| v-slot, v-slots | ✅ | ✅ |
+| v-for | ✅ | ✅ |
+| v-model | ✅ | ✅ |
+| v-html, v-text | ✅ | / |
+| v-once | ✅ | / |
 
 ```jsx
 <input v-model={val} />
-<input v-show={visible} />
+<input v-if={visible} />
 ```
 
-### 宏用法
+---
+
+## Vue JSX Vapor 宏
+
+宏用法
 
 - 支持大部分Vue宏，如defineProps、defineEmits等
-- 适合TypeScript类型推导和IDE智能提示
+- 适合TypeScript类型推导和IDE智能提示（由于 vue-jsx-vapor 支持 Vue 指令和 Vue 宏，所以需要安装 TS Macro 的 VSCode 插件来加载 vue-jsx-vapor/volar 插件, 以获得类型支持。）
 
-### 自定义指令
+<br/>
 
-- 新版指令接收getter函数，返回清理函数
+```jsx
+import { ref } from 'vue'
 
-```js
-const MyDirective = (el, valueGetter) => {
-  watchEffect(() => {
-    el.textContent = valueGetter()
-  })
-  return () => console.log('clean when uninstalling')
+function Comp() {
+  const modelValue = defineModel<string>()!
+  modelValue.value = 'foo'
+  return <div>{modelValue.value}</div>
 }
-```
+
+export default () => {
+  const foo = ref('')
+  return <input value={foo.value} />
+}
 
 <!-- 展示JSX Vapor下指令和宏的典型用法 -->
 
