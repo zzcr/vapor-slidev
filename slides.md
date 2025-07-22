@@ -1,9 +1,9 @@
 ---
 # You can also start simply with 'default'
-theme: default
+theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
+background: https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1500&q=80
 # some information about your slides (markdown enabled)
 title: Vue 3.6 Vapor模式介绍
 info: |
@@ -29,7 +29,7 @@ mdc: true
 
 Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM），直接生成操作真实DOM的高效代码。
 
-- 只需在`<script setup>`标签上加`vapor`属性即可开启
+- 只需在\<script setup\> 标签上加 vapor 属性即可开启
 - 兼容现有的Composition API和模板语法
 - 让Vue性能媲美Solid.js等信号类框架
 
