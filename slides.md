@@ -27,7 +27,7 @@ mdc: true
 
 ## 什么是Vapor模式？
 
-Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM），直接生成操作真实DOM的高效代码。
+Vapor是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM），直接生成操作真实DOM的高效代码。
 
 - 只需在\<script setup\> 标签上加 vapor 属性即可开启
 - 兼容现有的Composition API和模板语法
@@ -41,14 +41,14 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
 
 <br/>
 
-| 特性         | VDOM模式                | Vapor模式                |
-| ------------ | ----------------------- | ------------------------ |
-| 渲染机制     | 虚拟DOM diff+patch      | 编译期生成直接DOM操作代码 |
-| 内存占用     | 较高                    | 更低                     |
-| 首屏包体积   | 较大                    | 更小                     |
-| 响应式追踪   | 依赖VNode树             | 精确追踪依赖节点         |
-| 性能         | 已很优秀                | 更快，极致优化           |
-| 兼容性       | 支持所有Vue特性         | 部分特性暂不支持         |
+| 特性       | VDOM模式           | Vapor模式                 |
+| ---------- | ------------------ | ------------------------- |
+| 渲染机制   | 虚拟DOM diff+patch | 编译期生成直接DOM操作代码 |
+| 内存占用   | 较高               | 更低                      |
+| 首屏包体积 | 较大               | 更小                      |
+| 响应式追踪 | 依赖VNode树        | 精确追踪依赖节点          |
+| 性能       | 已很优秀           | 更快，极致优化            |
+| 兼容性     | 支持所有Vue特性    | 部分特性暂不支持          |
 
 <!-- 通过表格直观对比两种模式的核心差异 -->
 
@@ -79,16 +79,16 @@ const handleClick = () => {
 
 <br/>
 
-| Vue Dev | Vapor Dev |
-| ------- | --------- |
+| Vue Dev                             | Vapor Dev                              |
+| ----------------------------------- | -------------------------------------- |
 | ![](/vue-dev.png) <br/>（Vue VDOM） | ![](/vapor-dev.png) <br/>（Vue Vapor） |
 
 ---
 
 ## Vue与Vapor构建对比
 
-| Vue Build | Vapor Build |
-| --------- | ----------- |
+| Vue Build                                     | Vapor Build                                      |
+| --------------------------------------------- | ------------------------------------------------ |
 | ![](/vue-build.png) <br/>生产构建（Vue VDOM） | ![](/vapor-build.png) <br/>生产构建（Vue Vapor） |
 
 ---
@@ -132,8 +132,8 @@ const handleClick = () => {
 
 ```vue
 <script setup vapor>
-import { ref } from 'vue'
-const count = ref(0)
+import { ref } from "vue";
+const count = ref(0);
 </script>
 <template>
   <button @click="count++">Count: {{ count }}</button>
@@ -147,9 +147,9 @@ const count = ref(0)
 - Vite配置需升级到vapor专用插件
 
 ```js
-import { createVaporApp } from 'vue/vapor'
-import App from './App.vue'
-createVaporApp(App).mount('#app')
+import { createVaporApp } from "vue/vapor";
+import App from "./App.vue";
+createVaporApp(App).mount("#app");
 ```
 
 <!-- 展示如何在不同层级启用Vapor模式 -->
@@ -180,8 +180,8 @@ Vue JSX Vapor是专为Vapor模式优化的JSX编译器插件，支持高性能�
 - 兼容大部分Vue内置指令和宏
 
 ```js
-import { defineConfig } from 'vite'
-import vueJsxVapor from 'vue-jsx-vapor/vite'
+import { defineConfig } from "vite";
+import vueJsxVapor from "vue-jsx-vapor/vite";
 
 export default defineConfig({
   plugins: [
@@ -189,7 +189,7 @@ export default defineConfig({
       macros: true, // 宏需要通过将 macros 设置为 true 来手动启用。
     }),
   ],
-})
+});
 ```
 
 <!-- 介绍JSX Vapor的安装和基本用法 -->
@@ -198,14 +198,14 @@ export default defineConfig({
 
 ## Vue JSX Vapor 指令
 
-| 指令 | Vue | Volar |
-| --- | --- | --- |
-| v-if, v-else-if, v-else | ✅ | ✅ |
-| v-slot, v-slots | ✅ | ✅ |
-| v-for | ✅ | ✅ |
-| v-model | ✅ | ✅ |
-| v-html, v-text | ✅ | / |
-| v-once | ✅ | / |
+| 指令                    | Vue | Volar |
+| ----------------------- | --- | ----- |
+| v-if, v-else-if, v-else | ✅  | ✅    |
+| v-slot, v-slots         | ✅  | ✅    |
+| v-for                   | ✅  | ✅    |
+| v-model                 | ✅  | ✅    |
+| v-html, v-text          | ✅  | /     |
+| v-once                  | ✅  | /     |
 
 ```jsx
 <input v-model={val} />
@@ -249,3 +249,4 @@ export default () => {
 - 未来Vapor模式将持续完善，建议关注官方动态
 
 <!-- 总结全文，便于回顾和后续查阅 -->
+```
