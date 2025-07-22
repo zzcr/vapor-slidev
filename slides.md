@@ -54,6 +54,45 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
 
 ---
 
+## 同一段代码在Vue与Vapor下的表现
+
+<br/>
+```vue
+<script setup lang="ts" vapor>
+import { ref } from "vue";
+import HelloWorld from "./components/HelloWorld.vue";
+const message = ref("Vite + Vue");
+const handleClick = () => {
+  message.value = "Hello World!"; // Update the message when the button is clicked
+};
+</script>
+
+<template>
+  <button @click="handleClick">点击我改变值</button>
+  <HelloWorld v-for="item in 30000" :msg="message" />
+</template>
+```
+
+---
+
+## Vue与Vapor本地开发
+
+<br/>
+
+| Vue Dev | Vapor Dev |
+| ------- | --------- |
+| ![](/vue-dev.png) <br/>（Vue VDOM） | ![](/vapor-dev.png) <br/>（Vue Vapor） |
+
+---
+
+## Vue与Vapor构建对比
+
+| Vue Build | Vapor Build |
+| --------- | ----------- |
+| ![](/vue-build.png) <br/>生产构建（Vue VDOM） | ![](/vapor-build.png) <br/>生产构建（Vue Vapor） |
+
+---
+
 ## VDOM模式优缺点
 
 <br/>
