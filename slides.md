@@ -37,7 +37,7 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
 
 ---
 
-# Vapor模式与VDOM模式的区别
+## Vapor模式与VDOM模式的区别
 
 | 特性         | VDOM模式                | Vapor模式                |
 | ------------ | ----------------------- | ------------------------ |
@@ -52,16 +52,17 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
 
 ---
 
-# Vapor模式与VDOM模式优缺点
-
 ## VDOM模式优缺点
 
 - 优点：
   - 兼容性强，支持所有Vue特性（如Transition、KeepAlive等）
+  - 可以抽象出VNode树，对接自定义渲染器
   - 生态成熟，第三方库支持好
-- 缺点：
+- 缺点（大型项目可能表现的更突出）：
   - 存在VNode创建和diff的运行时开销
   - 内存占用相对更高
+
+---
 
 ## Vapor模式优缺点
 
@@ -69,17 +70,21 @@ Vapor模式是Vue 3.6引入的一种全新渲染策略，跳过虚拟DOM（VDOM�
   - 极致性能，包体积和内存占用大幅下降
   - 响应式追踪更精准，更新更快
   - 适合性能敏感场景和新项目
-- 缺点：
-  - 暂不支持Options API、部分高级特性
-  - 生态适配中，部分第三方库需vaporInteropPlugin
-
-<!-- 总结两种模式的适用场景和注意事项 -->
+- 缺点（可能是缺点~~~）：
+  - 不支持 Options API
+  - 暂时不支持Transition、KeepAlive、Suspense、SSR等高级特性
+  - 明确不支持的特性：
+    - 选项 API
+    - app.config.globalProperties
+    - getCurrentInstance()nullVapor 组件中的回报
+    - 隐式实例属性（例如`$slots`和）`$props`在 Vapor 模板表达式中不可用
+    - @vue:xxx每个元素的生命周期事件
 
 ---
 
-# 如何开启Vapor模式？
+## 如何开启Vapor模式？
 
-## 局部开启（推荐渐进迁移）
+### 局部开启（推荐渐进迁移）
 
 ```vue
 <script setup vapor>
@@ -91,7 +96,7 @@ const count = ref(0)
 </template>
 ```
 
-## 全局开启（新项目/极致性能）
+### 全局开启（新项目/极致性能）
 
 - 使用`createVaporApp`替换`createApp`
 - 或将根组件命名为`App.vapor.vue`
@@ -107,7 +112,7 @@ createVaporApp(App).mount('#app')
 
 ---
 
-# Vapor模式的适用建议
+## Vapor模式的适用建议
 
 - ✅ 性能关键页面（如首页、列表页）
 - ✅ 新项目可直接全局启用
@@ -120,7 +125,7 @@ createVaporApp(App).mount('#app')
 
 ---
 
-# Vue JSX Vapor 用法简介
+## Vue JSX Vapor 用法简介
 
 Vue JSX Vapor是专为Vapor模式优化的JSX编译器插件，支持高性能的JSX写法。
 
@@ -140,9 +145,9 @@ export default {
 
 ---
 
-# Vue JSX Vapor 指令与宏
+## Vue JSX Vapor 指令与宏
 
-## 常用指令支持
+### 常用指令支持
 
 - v-show、v-if、v-for、v-model等均可直接在JSX中使用
 - 语法示例：
@@ -152,12 +157,12 @@ export default {
 <input v-show={visible} />
 ```
 
-## 宏用法
+### 宏用法
 
 - 支持大部分Vue宏，如defineProps、defineEmits等
 - 适合TypeScript类型推导和IDE智能提示
 
-## 自定义指令
+### 自定义指令
 
 - 新版指令接收getter函数，返回清理函数
 
