@@ -237,7 +237,7 @@ export default () => {
   return <input value={foo.value} />
 }
 
-<!-- 展示JSX Vapor下指令和宏的典型用法 -->
+```
 
 ---
 
