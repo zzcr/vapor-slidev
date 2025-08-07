@@ -120,7 +120,7 @@ const handleClick = () => {
   - 明确不支持的特性：
     - 选项 API ❌
     - app.config.globalProperties ❌
-    - getCurrentInstance()nullVapor 组件中的回报 ❌
+    - getCurrentInstance() 获取组件实例 ❌
     - 隐式实例属性（例如`$slots`和）`$props`在 Vapor 模板表达式中不可用 ❌
     - @vue:xxx每个元素的生命周期事件 ❌
 
@@ -249,4 +249,7 @@ export default () => {
 - 未来Vapor模式将持续完善，建议关注官方动态
 
 <!-- 总结全文，便于回顾和后续查阅 -->
+
+```
+
 ```
